@@ -69,6 +69,22 @@
 | 소송 | `opendart_lawsuit` |
 | 회생절차 | `opendart_rehabilitation` |
 
+### 공시서류 원문
+| 상황 | 도구 |
+|------|------|
+| 감사보고서·사업보고서 원문 XML | `opendart_get_document` |
+
+**비상장사 재무데이터**: 정기보고서 미제출사(비상장 외부감사 대상)는 재무제표 API
+(`opendart_full_financial_statement` 등)에 데이터가 없습니다. 이 경우
+`opendart_search_disclosure(pblntf_ty: "F")` 로 감사보고서를 찾아
+`opendart_get_document` 로 원문을 읽으세요.
+
+**원문이 길 때**: 재무제표 본표는 문서 앞부분에 있지만 주석(감가상각비, 비용의 성격별 분류,
+차입금 내역)은 15만자 지점 이후에 나오는 경우가 많아 기본 반환 상한에서 잘립니다.
+- 필요한 주석만 뽑을 때: `keyword: "감가상각비"` — 매치 주변 구간만 반환. **이 방식을 우선 사용**
+- 순차로 다 읽을 때: 응답에 표시된 `next_offset` 값을 `offset` 에 넣어 재호출
+- 상한 조정: `max_chars` (기본 100,000 / 최대 200,000)
+
 ### 감사/채무
 | 상황 | 도구 |
 |------|------|
