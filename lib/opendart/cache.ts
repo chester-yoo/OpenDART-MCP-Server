@@ -26,6 +26,9 @@ function initCache(): CorpCodeCache {
 
   for (const entry of corpCodesData) {
     byCorpCode.set(entry.corp_code, entry);
+    // 데이터 생성 시 앞자리 0이 빠진 종목코드(예: "66970")가 있어 6자리로 복원한다.
+    const sc = entry.stock_code?.trim();
+    if (sc && /^\d{1,6}$/.test(sc)) entry.stock_code = sc.padStart(6, "0");
     if (entry.stock_code) {
       byStockCode.set(entry.stock_code, entry);
     }

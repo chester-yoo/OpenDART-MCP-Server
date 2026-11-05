@@ -18,7 +18,7 @@ const annotations = { readOnlyHint: true, destructiveHint: false, idempotentHint
  * XML 선언의 encoding 속성을 먼저 보고, 없거나 디코딩 결과가 깨지면
  * (U+FFFD 치환문자 비율로 판정) 다른 인코딩으로 재시도한다.
  */
-function decodeXml(bytes: Uint8Array): { text: string; encoding: string } {
+export function decodeXml(bytes: Uint8Array): { text: string; encoding: string } {
   // XML 선언은 ASCII 영역이므로 앞부분만 latin1 로 훑어 encoding 속성을 찾는다.
   const head = new TextDecoder("latin1").decode(bytes.subarray(0, 256));
   const declared = /encoding\s*=\s*["']([\w-]+)["']/i.exec(head)?.[1]?.toLowerCase();
