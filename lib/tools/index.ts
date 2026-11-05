@@ -10,6 +10,7 @@ import { registerSecuritiesRegTools } from "./securities-reg";
 import { registerWorkflowTools } from "./workflows";
 import { registerDocumentTools } from "./document";
 import { registerDaTools } from "./da";
+import { registerPriceTools } from "./price";
 
 function registerConfigTools(server: McpServer) {
   // set_api_key 는 키를 서버 전역에 저장해 다른 사용자와 공유되는 문제가 있어 더 이상 키를 저장하지 않는다.
@@ -71,4 +72,5 @@ export function registerAllTools(server: McpServer) {
   registerSecuritiesRegTools(server);  // Securities registration statements
   registerDocumentTools(server);       // Original disclosure document (document.xml)
   registerDaTools(server);             // D&A extraction for EBITDA (listed companies)
+  registerPriceTools(server);          // N-month average close (Naver daily prices)
 }
